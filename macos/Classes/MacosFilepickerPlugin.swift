@@ -9,9 +9,33 @@ public class MacosFilepickerPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    
     switch call.method {
     case "getPlatformVersion":
-      result("macOS " + ProcessInfo.processInfo.operatingSystemVersionString)
+         
+      result("macsssOS " + ProcessInfo.processInfo.operatingSystemVersionString)
+      break;
+    case "openFileDialog":
+      let panel = NSOpenPanel()
+        
+       
+        panel.title                   = "true";
+        panel.showsResizeIndicator    = true;
+        panel.showsHiddenFiles        = true;
+        panel.allowsMultipleSelection = false;
+        panel.canChooseFiles = true;
+        panel.canChooseDirectories = true;
+        panel.allowedFileTypes        = ["png"]
+        if panel.runModal() == .OK {
+            result(panel.url!.path)
+             
+        }
+        else
+        {
+            result("null")
+        }
+        
+      break;
     default:
       result(FlutterMethodNotImplemented)
     }
