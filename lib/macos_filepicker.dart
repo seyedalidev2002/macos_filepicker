@@ -20,16 +20,36 @@ class MacosFilepicker {
       this.canChooseDirectories,
       this.allowedTypes});
 
-  Future<String> getFile() async {
-    final String path = await _channel.invokeMethod("openFileDialog", [
-      title,
-      showReiszeIndicator,
-      showHiddenFiles,
-      canChooseFiles,
-      canChooseDirectories,
-      allowedTypes,
-    ]);
-    return path;
+  Future<File> getFile() async {
+    final String path = await _channel.invokeMethod("getFile", {
+      "title": title,
+      "showsResizeIndicator": showReiszeIndicator,
+      "showsHiddenFiles": showHiddenFiles,
+      "canChooseFiles": canChooseFiles,
+      "canChooseDirectories": canChooseDirectories,
+      "allowedTypes": allowedTypes,
+      "allowsMultipleSelection": false
+    });
+
+    return File(path);
+  }
+
+  Future<List<File>> getMultipleFiles() async {
+    final List<dynamic> paths =
+        await _channel.invokeMethod("getMultipleFiles", {
+      "title": title,
+      "showsResizeIndicator": showReiszeIndicator,
+      "showsHiddenFiles": showHiddenFiles,
+      "canChooseFiles": canChooseFiles,
+      "canChooseDirectories": canChooseDirectories,
+      "allowedTypes": allowedTypes,
+      "allowsMultipleSelection": true
+    });
+    List<File> files = paths.map((e) => File(e.toString())).toList();
+    paths.forEach((element) {
+      print(element.toString());
+    });
+    return files;
   }
 
   static Future<String> get platformVersion async {

@@ -57,12 +57,11 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () async {
                     MacosFilepicker picker = MacosFilepicker(
                         title: "hello",
-                        allowedTypes: ['txt'],
                         canChooseDirectories: true,
                         canChooseFiles: true,
                         showHiddenFiles: true,
                         showReiszeIndicator: false);
-                    _platformVersion = (await picker.getFile());
+                    (await picker.getMultipleFiles());
                     setState(() {
                       _platformVersion = _platformVersion;
                     });
