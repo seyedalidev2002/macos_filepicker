@@ -30,7 +30,8 @@ class MacosFilepicker {
       "allowedTypes": allowedTypes,
       "allowsMultipleSelection": false
     });
-
+    if (path == null )
+      return null
     return File(path);
   }
 
@@ -45,6 +46,7 @@ class MacosFilepicker {
       "allowedTypes": allowedTypes,
       "allowsMultipleSelection": true
     });
+    if (paths == null) return null;
     List<File> files = paths.map((e) => File(e.toString())).toList();
     paths.forEach((element) {
       print(element.toString());

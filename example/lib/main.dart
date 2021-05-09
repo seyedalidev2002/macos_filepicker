@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                         canChooseFiles: true,
                         showHiddenFiles: true,
                         showReiszeIndicator: false);
-                    (await picker.getMultipleFiles());
+                    (await picker.getFile());
                     setState(() {
                       _platformVersion = _platformVersion;
                     });
